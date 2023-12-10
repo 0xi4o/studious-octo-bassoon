@@ -1,6 +1,17 @@
-import { Card, Title, LineChart, DateRangePicker } from '@tremor/react'
+import { Card, Title, LineChart } from '@tremor/react'
 import Navbar from '~/components/Navbar'
+import {
+	DateRangePicker,
+	DateRangeSelector,
+} from '~/components/DateRangePicker'
 import { useState } from 'react'
+import { DataTable } from '~/components/logs/DataTable'
+import {
+	columns,
+	createRandomLogs,
+	data,
+	getSortedData,
+} from '~/components/logs/columns'
 
 const chartdata2 = [
 	{
@@ -65,27 +76,38 @@ const chartdata2 = [
 	},
 ]
 
+// const data: Log[] = createRandomLogs(30)
+const sortedData = getSortedData()
+
 export default function Home() {
 	const [value, setValue] = useState()
 
 	return (
 		<>
 			<Navbar />
-			<main className='mx-auto flex max-w-7xl flex-col items-start justify-start gap-4 px-6 py-24 sm:py-32 lg:px-8'>
-				<Card>
-					<Title>Closed Pull Requests</Title>
-					<LineChart
-						className='mt-4 h-96'
-						data={chartdata2}
-						index='date'
-						categories={['2022', '2023']}
-						colors={['neutral', 'indigo']}
-						yAxisWidth={30}
-						onValueChange={(v) => setValue(v)}
-						connectNulls={true}
-					/>
-				</Card>
-				<DateRangePicker enableSelect={true} />
+			<main className='mx-auto flex max-w-7xl flex-col items-start justify-start gap-8 px-6 py-16 sm:py-24 lg:px-8'>
+				<section className='flex w-full items-center gap-4'>
+					<DateRangeSelector />
+					<DateRangePicker />
+				</section>
+				<section className='flex w-full flex-col gap-8'>
+					<Card>
+						<Title>Closed Pull Requests</Title>
+						<LineChart
+							className='mt-4 h-96'
+							data={chartdata2}
+							index='date'
+							categories={['2022', '2023']}
+							colors={['neutral', 'indigo']}
+							yAxisWidth={30}
+							onValueChange={(v) => setValue(v)}
+							connectNulls={true}
+						/>
+					</Card>
+					<div className='flex w-full flex-col gap-4'>
+						<DataTable columns={columns} data={sortedData} />
+					</div>
+				</section>
 			</main>
 		</>
 	)
