@@ -1,41 +1,54 @@
 /** @type {import('tailwindcss').Config} */
-
-export default {
+module.exports = {
+	darkMode: ['class'],
 	content: [
-		'./app/**/*.{js,ts,jsx,tsx}',
-		'./node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
+		'./pages/**/*.{ts,tsx}',
+		'./components/**/*.{ts,tsx}',
+		'./app/**/*.{ts,tsx}',
+		'./node_modules/@tremor/**/*.{js,ts,jsx,tsx}', // Tremor module
 	],
-	darkMode: 'class',
 	theme: {
-		transparent: 'transparent',
-		current: 'currentColor',
+		container: {
+			center: true,
+			padding: '2rem',
+			screens: {
+				'2xl': '1400px',
+			},
+		},
 		extend: {
 			colors: {
-				brand: {
-					DEFAULT: 'rgb(var(--brand) / <alpha-value>)',
-					subtle: 'rgb(var(--brand-subtle) / <alpha-value>)',
-					hover: 'rgb(var(--brand-hover) / <alpha-value>)',
-					states: 'rgb(var(--brand-states) / <alpha-value>)',
+				border: 'hsl(var(--border))',
+				input: 'hsl(var(--input))',
+				ring: 'hsl(var(--ring))',
+				background: 'hsl(var(--background))',
+				foreground: 'hsl(var(--foreground))',
+				primary: {
+					DEFAULT: 'hsl(var(--primary))',
+					foreground: 'hsl(var(--primary-foreground))',
+				},
+				secondary: {
+					DEFAULT: 'hsl(var(--secondary))',
+					foreground: 'hsl(var(--secondary-foreground))',
+				},
+				destructive: {
+					DEFAULT: 'hsl(var(--destructive))',
+					foreground: 'hsl(var(--destructive-foreground))',
 				},
 				muted: {
-					DEFAULT: 'rgb(var(--muted) / <alpha-value>)',
-					foreground: 'rgb(var(--muted-foreground) / <alpha-value>)',
+					DEFAULT: 'hsl(var(--muted))',
+					foreground: 'hsl(var(--muted-foreground))',
 				},
-				primary: {
-					DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
-					subtle: 'rgb(var(--primary-subtle) / <alpha-value>)',
-					foreground:
-						'rgb(var(--primary-foreground) / <alpha-value>)',
-					'foreground-subtle':
-						'rgb(var(--primary-foreground-subtle) / <alpha-value>)',
+				accent: {
+					DEFAULT: 'hsl(var(--accent))',
+					foreground: 'hsl(var(--accent-foreground))',
 				},
-				subtle: {
-					DEFAULT: 'rgb(var(--subtle) / <alpha-value>)',
+				popover: {
+					DEFAULT: 'hsl(var(--popover))',
+					foreground: 'hsl(var(--popover-foreground))',
 				},
-				ui: {
-					DEFAULT: 'rgb(var(--ui) / <alpha-value>)',
-					hover: 'rgb(var(--ui-hover) / <alpha-value>)',
-					states: 'rgb(var(--ui-states) / <alpha-value>)',
+				card: {
+					DEFAULT: 'hsl(var(--card))',
+					foreground: 'hsl(var(--card-foreground))',
 				},
 				// light mode
 				tremor: {
@@ -78,13 +91,13 @@ export default {
 						inverted: '#030712', // gray-950
 					},
 					background: {
-						muted: 'rgb(var(--ui-states) / <alpha-value>)', // custom
-						subtle: 'rgb(var(--ui-states) / <alpha-value>)', // gray-800
-						DEFAULT: 'rgb(var(--ui) / <alpha-value>)',
-						emphasis: 'rgb(var(--ui-states) / <alpha-value>)', // gray-300
+						muted: '#131A2B', // custom
+						subtle: '#1f2937', // gray-800
+						DEFAULT: 'hsl(var(--background))', // gray-900
+						emphasis: '#d1d5db', // gray-300
 					},
 					border: {
-						DEFAULT: 'rgb(var(--subtle) / <alpha-value>)', // gray-800
+						DEFAULT: '#1f2937', // gray-800
 					},
 					ring: {
 						DEFAULT: '#1f2937', // gray-800
@@ -97,6 +110,25 @@ export default {
 						inverted: '#000000', // black
 					},
 				},
+			},
+			borderRadius: {
+				lg: 'var(--radius)',
+				md: 'calc(var(--radius) - 2px)',
+				sm: 'calc(var(--radius) - 4px)',
+			},
+			keyframes: {
+				'accordion-down': {
+					from: { height: 0 },
+					to: { height: 'var(--radix-accordion-content-height)' },
+				},
+				'accordion-up': {
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: 0 },
+				},
+			},
+			animation: {
+				'accordion-down': 'accordion-down 0.2s ease-out',
+				'accordion-up': 'accordion-up 0.2s ease-out',
 			},
 			boxShadow: {
 				// light
@@ -122,24 +154,6 @@ export default {
 				'tremor-default': ['0.875rem', { lineHeight: '1.25rem' }],
 				'tremor-title': ['1.125rem', { lineHeight: '1.75rem' }],
 				'tremor-metric': ['1.875rem', { lineHeight: '2.25rem' }],
-			},
-			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-			},
-			animation: {
-				text: 'text 5s ease infinite',
-			},
-			keyframes: {
-				text: {
-					'0%, 100%': {
-						'background-size': '200% 200%',
-						'background-position': 'left center',
-					},
-					'50%': {
-						'background-size': '200% 200%',
-						'background-position': 'right center',
-					},
-				},
 			},
 		},
 	},
@@ -172,5 +186,5 @@ export default {
 				/^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
 		},
 	],
-	plugins: [], // require('@headlessui/tailwindcss')
+	plugins: [require('tailwindcss-animate')],
 }
