@@ -15,7 +15,7 @@ export const links: LinksFunction = () => {
 		{ rel: 'preconnect', href: 'https://fonts.gstatic.com' },
 		{
 			rel: 'stylesheet',
-			href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
+			href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap',
 		},
 		{ rel: 'stylesheet', href: styles },
 	]
@@ -23,7 +23,7 @@ export const links: LinksFunction = () => {
 
 export default function App() {
 	return (
-		<html className='dark' lang='en'>
+		<html className='' lang='en'>
 			<head>
 				<meta charSet='utf-8' />
 				<meta

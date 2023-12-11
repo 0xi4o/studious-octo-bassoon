@@ -1,11 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 module.exports = {
 	darkMode: ['class'],
 	content: [
 		'./pages/**/*.{ts,tsx}',
 		'./components/**/*.{ts,tsx}',
 		'./app/**/*.{ts,tsx}',
-		'./node_modules/@tremor/**/*.{js,ts,jsx,tsx}', // Tremor module
+		'./node_modules/@tremor/**/*.{js,ts,jsx,tsx}', // for charts
 	],
 	theme: {
 		container: {
@@ -154,6 +156,9 @@ module.exports = {
 				'tremor-default': ['0.875rem', { lineHeight: '1.25rem' }],
 				'tremor-title': ['1.125rem', { lineHeight: '1.75rem' }],
 				'tremor-metric': ['1.875rem', { lineHeight: '2.25rem' }],
+			},
+			fontFamily: {
+				sans: ['Plus Jakarta Sans', ...fontFamily.sans],
 			},
 		},
 	},
