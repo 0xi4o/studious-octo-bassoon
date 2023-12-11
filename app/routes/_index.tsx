@@ -116,17 +116,17 @@ export default function Home() {
 					) : null}
 				</section>
 				<section className='flex w-full flex-col gap-4'>
-					<Card>
-						<LineChart
-							className='mt-4 h-96'
-							data={chartdata2}
-							index='date'
-							categories={['2022', '2023']}
-							colors={['neutral', 'indigo']}
-							yAxisWidth={30}
-							connectNulls={true}
-						/>
-					</Card>
+					{/*<Card>*/}
+					{/*	<LineChart*/}
+					{/*		className='mt-4 h-96'*/}
+					{/*		data={chartdata2}*/}
+					{/*		index='date'*/}
+					{/*		categories={['2022', '2023']}*/}
+					{/*		colors={['neutral', 'indigo']}*/}
+					{/*		yAxisWidth={30}*/}
+					{/*		connectNulls={true}*/}
+					{/*	/>*/}
+					{/*</Card>*/}
 					<div className='flex w-full flex-col gap-4'>
 						<DataTable data={sortedData} range={range} />
 					</div>

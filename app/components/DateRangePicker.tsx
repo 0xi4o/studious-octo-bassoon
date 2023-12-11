@@ -73,8 +73,8 @@ export function DateRangePicker({
 }
 
 type DateRangeSelectorProps = {
-	days: number
-	setDays: Dispatch<SetStateAction<number>>
+	days: number | undefined
+	setDays: Dispatch<SetStateAction<number | undefined>>
 }
 
 export function DateRangeSelector({ days, setDays }: DateRangeSelectorProps) {

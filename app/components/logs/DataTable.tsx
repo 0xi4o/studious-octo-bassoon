@@ -86,13 +86,13 @@ export function DataTable<TData>({ data, range }: DataTableProps<TData>) {
 				let value = getValue()
 				if (value === 'success') {
 					return (
-						<span className='inline-flex rounded-md bg-green-500 px-2 py-1 font-bold'>
+						<span className='inline-flex rounded-md bg-green-500 px-2 py-1 font-medium text-white'>
 							{value}
 						</span>
 					)
 				} else {
 					return (
-						<span className='inline-flex rounded-md bg-red-500 px-2 py-1 font-bold'>
+						<span className='inline-flex rounded-md bg-red-500 px-2 py-1 font-medium text-white'>
 							{value}
 						</span>
 					)
