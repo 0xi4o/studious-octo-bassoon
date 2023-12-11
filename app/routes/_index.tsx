@@ -6,9 +6,11 @@ import {
 } from '~/components/DateRangePicker'
 import { useEffect, useState } from 'react'
 import { DataTable } from '~/components/logs/DataTable'
-import { columns, getSortedData } from '~/components/logs/columns'
+import { getSortedData } from '~/components/logs/data'
 import { subDays } from 'date-fns'
 import { DateRange } from 'react-day-picker'
+import { Button } from '~/components/ui/button'
+import { XCircle } from 'lucide-react'
 
 const chartdata2 = [
 	{
@@ -90,17 +92,28 @@ export default function Home() {
 		setRange(dateRange)
 	}, [days])
 
+	const clearFilters = () => {
+		setDays(undefined)
+		setRange(undefined)
+	}
+
 	return (
 		<>
 			<Navbar />
 			<main className='mx-auto flex max-w-7xl flex-col items-start justify-start gap-4 px-6 py-16 sm:py-24 lg:px-8'>
 				<section className='flex w-full items-center gap-4'>
-					<DateRangeSelector setDays={setDays} />
+					<DateRangeSelector days={days} setDays={setDays} />
 					{/*{days === '0' ? <DateRangePicker days={days} /> : null}*/}
 					<DateRangePicker
 						dateRange={range}
 						setDateRange={setRange}
 					/>
+					{days || range ? (
+						<Button variant='ghost' onClick={clearFilters}>
+							<XCircle className='mr-2 h-4 w-4' />
+							Clear Filters
+						</Button>
+					) : null}
 				</section>
 				<section className='flex w-full flex-col gap-4'>
 					<Card>
@@ -115,13 +128,7 @@ export default function Home() {
 						/>
 					</Card>
 					<div className='flex w-full flex-col gap-4'>
-						<div className='mt-8 flex flex-col gap-4'>
-							<h2 className='mb-0 text-3xl'>Logs</h2>
-							<span className='text-muted-foreground'>
-								Runtime logs from your API
-							</span>
-						</div>
-						<DataTable columns={columns} data={sortedData} />
+						<DataTable data={sortedData} range={range} />
 					</div>
 				</section>
 			</main>
