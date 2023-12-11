@@ -5,3 +5,8 @@ node_modules
 /public/build
 .env
 .idea
+/server/index.mjs
+/server/index.mjs.map
+/server/metafile.*
+/server/version.txt
+preferences.arc
