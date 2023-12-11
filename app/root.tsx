@@ -1,4 +1,4 @@
-import type { LinksFunction } from '@remix-run/node'
+import type { LinksFunction, MetaFunction } from '@remix-run/node'
 import {
 	Links,
 	LiveReload,
@@ -18,12 +18,35 @@ export const links: LinksFunction = () => {
 			href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap',
 		},
 		{ rel: 'stylesheet', href: styles },
+		{
+			rel: 'shortcut icon',
+			type: 'image/x-icon',
+			sizes: '32x32',
+			href: 'https://metakeep.xyz/images/favicon.png',
+		},
 	]
 }
 
+export const meta: MetaFunction = () => [
+	{
+		charSet: 'utf-8',
+	},
+	{
+		title: 'MetaKeep Dashboard',
+	},
+	{
+		name: 'description',
+		content: '',
+	},
+	{
+		name: 'viewport',
+		content: 'width=device-width,initial-scale=1',
+	},
+]
+
 export default function App() {
 	return (
-		<html className='' lang='en'>
+		<html className='dark' lang='en'>
 			<head>
 				<meta charSet='utf-8' />
 				<meta

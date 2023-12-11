@@ -5,14 +5,14 @@ export default function Navbar() {
 	return (
 		<header className='supports-backdrop-blur:bg-white/60 sticky top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-center px-4 py-4 shadow-sm shadow-gray-200 backdrop-blur dark:bg-transparent dark:shadow-gray-700 sm:px-6 lg:px-8'>
 			<div className='flex w-full max-w-7xl items-center justify-between px-6 lg:px-8'>
-				<div className='relative flex flex-grow basis-0 items-center'>
+				<div className='relative flex flex-grow items-center'>
 					<Link
 						aria-label='Home page'
 						className='flex items-center text-gray-900 dark:text-gray-50'
 						to='/'
 					>
 						<img
-							className='flex h-6'
+							className='flex h-6 invert'
 							src='https://metakeep.xyz/images/MetaKeep-1.png'
 							alt='logo'
 						/>
