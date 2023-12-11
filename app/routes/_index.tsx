@@ -1,17 +1,14 @@
-import { Card, Title, LineChart } from '@tremor/react'
+import { Card, LineChart } from '@tremor/react'
 import Navbar from '~/components/Navbar'
 import {
 	DateRangePicker,
 	DateRangeSelector,
 } from '~/components/DateRangePicker'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DataTable } from '~/components/logs/DataTable'
-import {
-	columns,
-	createRandomLogs,
-	data,
-	getSortedData,
-} from '~/components/logs/columns'
+import { columns, getSortedData } from '~/components/logs/columns'
+import { subDays } from 'date-fns'
+import { DateRange } from 'react-day-picker'
 
 const chartdata2 = [
 	{
@@ -80,19 +77,33 @@ const chartdata2 = [
 const sortedData = getSortedData()
 
 export default function Home() {
-	const [value, setValue] = useState()
+	const [days, setDays] = useState<number>()
+	const [range, setRange] = useState<DateRange | undefined>()
+
+	useEffect(() => {
+		const dateRange = days
+			? {
+					from: subDays(new Date(), days),
+					to: new Date(),
+			  }
+			: undefined
+		setRange(dateRange)
+	}, [days])
 
 	return (
 		<>
 			<Navbar />
-			<main className='mx-auto flex max-w-7xl flex-col items-start justify-start gap-8 px-6 py-16 sm:py-24 lg:px-8'>
+			<main className='mx-auto flex max-w-7xl flex-col items-start justify-start gap-4 px-6 py-16 sm:py-24 lg:px-8'>
 				<section className='flex w-full items-center gap-4'>
-					<DateRangeSelector />
-					<DateRangePicker />
+					<DateRangeSelector setDays={setDays} />
+					{/*{days === '0' ? <DateRangePicker days={days} /> : null}*/}
+					<DateRangePicker
+						dateRange={range}
+						setDateRange={setRange}
+					/>
 				</section>
-				<section className='flex w-full flex-col gap-8'>
+				<section className='flex w-full flex-col gap-4'>
 					<Card>
-						<Title>Closed Pull Requests</Title>
 						<LineChart
 							className='mt-4 h-96'
 							data={chartdata2}
@@ -100,11 +111,16 @@ export default function Home() {
 							categories={['2022', '2023']}
 							colors={['neutral', 'indigo']}
 							yAxisWidth={30}
-							onValueChange={(v) => setValue(v)}
 							connectNulls={true}
 						/>
 					</Card>
 					<div className='flex w-full flex-col gap-4'>
+						<div className='mt-8 flex flex-col gap-4'>
+							<h2 className='mb-0 text-3xl'>Logs</h2>
+							<span className='text-muted-foreground'>
+								Runtime logs from your API
+							</span>
+						</div>
 						<DataTable columns={columns} data={sortedData} />
 					</div>
 				</section>

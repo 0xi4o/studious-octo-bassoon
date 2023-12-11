@@ -1,7 +1,6 @@
-import * as React from 'react'
-import { addDays, format } from 'date-fns'
+import { Dispatch, HTMLAttributes, SetStateAction } from 'react'
+import { format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-react'
-import { DateRange } from 'react-day-picker'
 
 import { cn } from '~/lib/utils'
 import { Button } from '~/components/ui/button'
@@ -18,15 +17,19 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '~/components/ui/select'
+import { DateRange } from 'react-day-picker'
+
+type DateRangePickerProps = HTMLAttributes<HTMLDivElement> & {
+	days: number
+	dateRange: DateRange | undefined
+	setDateRange: (v: DateRange) => void
+}
 
 export function DateRangePicker({
 	className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-	const [date, setDate] = React.useState<DateRange | undefined>({
-		from: new Date(2022, 0, 20),
-		to: addDays(new Date(2022, 0, 20), 20),
-	})
-
+	dateRange,
+	setDateRange,
+}: DateRangePickerProps) {
 	return (
 		<div className={cn('grid gap-2', className)}>
 			<Popover>
@@ -36,18 +39,18 @@ export function DateRangePicker({
 						variant={'outline'}
 						className={cn(
 							'w-[300px] justify-start text-left font-normal',
-							!date && 'text-muted-foreground'
+							!dateRange && 'text-muted-foreground'
 						)}
 					>
 						<CalendarIcon className='mr-2 h-4 w-4' />
-						{date?.from ? (
-							date.to ? (
+						{dateRange?.from ? (
+							dateRange.to ? (
 								<>
-									{format(date.from, 'LLL dd, y')} -{' '}
-									{format(date.to, 'LLL dd, y')}
+									{format(dateRange.from, 'LLL dd, y')} -{' '}
+									{format(dateRange.to, 'LLL dd, y')}
 								</>
 							) : (
-								format(date.from, 'LLL dd, y')
+								format(dateRange.from, 'LLL dd, y')
 							)
 						) : (
 							<span>Pick a date</span>
@@ -58,9 +61,9 @@ export function DateRangePicker({
 					<Calendar
 						initialFocus
 						mode='range'
-						defaultMonth={date?.from}
-						selected={date}
-						onSelect={setDate}
+						defaultMonth={new Date()}
+						selected={dateRange}
+						onSelect={setDateRange}
 						numberOfMonths={2}
 					/>
 				</PopoverContent>
@@ -69,15 +72,13 @@ export function DateRangePicker({
 	)
 }
 
-export function DateRangeSelector() {
-	const [date, setDate] = React.useState<Date>()
+type DateRangeSelectorProps = {
+	setDays: Dispatch<SetStateAction<number>>
+}
 
+export function DateRangeSelector({ setDays }: DateRangeSelectorProps) {
 	return (
-		<Select
-			onValueChange={(value) =>
-				setDate(addDays(new Date(), parseInt(value)))
-			}
-		>
+		<Select onValueChange={(val) => setDays(parseInt(val))}>
 			<SelectTrigger className='w-[180px]'>
 				<SelectValue placeholder='Select' />
 			</SelectTrigger>

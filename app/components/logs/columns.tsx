@@ -59,9 +59,10 @@ export const columns: ColumnDef<Log>[] = [
 	{
 		accessorKey: 'error',
 		header: 'Error',
-		cell: ({ getValue }) => {
+		cell: ({ row, getValue }) => {
 			let value = getValue()
-			if (value !== '') {
+			let status = row.getValue('status')
+			if (status !== 'success') {
 				return (
 					<pre
 						className='max-w-[160px] truncate rounded-md bg-muted px-2 py-1'
