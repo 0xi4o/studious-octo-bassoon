@@ -73,16 +73,13 @@ export function DateRangePicker({
 }
 
 type DateRangeSelectorProps = {
-	days: number | undefined
-	setDays: Dispatch<SetStateAction<number | undefined>>
+	days: string
+	setDays: Dispatch<SetStateAction<string>>
 }
 
 export function DateRangeSelector({ days, setDays }: DateRangeSelectorProps) {
 	return (
-		<Select
-			onValueChange={(val) => setDays(parseInt(val))}
-			value={days ? `${days}` : ''}
-		>
+		<Select onValueChange={setDays} value={days}>
 			<SelectTrigger className='w-[180px]'>
 				<SelectValue placeholder='Select' />
 			</SelectTrigger>

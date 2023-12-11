@@ -79,13 +79,13 @@ const chartdata2 = [
 const sortedData = getSortedData()
 
 export default function Home() {
-	const [days, setDays] = useState<number>()
+	const [days, setDays] = useState<string>('')
 	const [range, setRange] = useState<DateRange | undefined>()
 
 	useEffect(() => {
-		const dateRange = days
+		const dateRange = parseInt(days)
 			? {
-					from: subDays(new Date(), days),
+					from: subDays(new Date(), parseInt(days)),
 					to: new Date(),
 			  }
 			: undefined
@@ -93,7 +93,7 @@ export default function Home() {
 	}, [days])
 
 	const clearFilters = () => {
-		setDays(undefined)
+		setDays('')
 		setRange(undefined)
 	}
 
@@ -103,7 +103,6 @@ export default function Home() {
 			<main className='mx-auto flex max-w-7xl flex-col items-start justify-start gap-4 px-6 py-16 sm:py-24 lg:px-8'>
 				<section className='flex w-full items-center gap-4'>
 					<DateRangeSelector days={days} setDays={setDays} />
-					{/*{days === '0' ? <DateRangePicker days={days} /> : null}*/}
 					<DateRangePicker
 						dateRange={range}
 						setDateRange={setRange}
