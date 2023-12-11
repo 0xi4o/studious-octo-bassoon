@@ -1,112 +1,13 @@
-import { ColumnDef } from '@tanstack/react-table'
 import { faker } from '@faker-js/faker'
-import { format } from 'date-fns'
 
 export type Log = {
 	id: string
 	timestamp: Date | string
-	status: 'success' | 'failure'
+	status: 'success' | 'error'
 	error?: string
 	request: string
 	response: string
 }
-
-export const columns: ColumnDef<Log>[] = [
-	{
-		accessorKey: 'id',
-		header: 'UserID',
-		cell: ({ getValue }) => {
-			let value = getValue()
-			return (
-				<div className='max-w-[160px] truncate' title={value}>
-					{value}
-				</div>
-			)
-		},
-	},
-	{
-		accessorKey: 'timestamp',
-		header: 'Timestamp',
-		cell: ({ getValue }) => {
-			let value = getValue()
-			return (
-				<div className='max-w-[160px] truncate' title={value}>
-					{format(new Date(value), 'PPp')}
-				</div>
-			)
-		},
-	},
-	{
-		accessorKey: 'status',
-		header: 'Status',
-		cell: ({ getValue }) => {
-			let value = getValue()
-			if (value === 'success') {
-				return (
-					<span className='rounded-md bg-green-500 px-2 py-1'>
-						{value}
-					</span>
-				)
-			} else {
-				return (
-					<span className='rounded-md bg-red-500 px-2 py-1'>
-						{value}
-					</span>
-				)
-			}
-		},
-	},
-	{
-		accessorKey: 'error',
-		header: 'Error',
-		cell: ({ row, getValue }) => {
-			let value = getValue()
-			let status = row.getValue('status')
-			if (status !== 'success') {
-				return (
-					<pre
-						className='max-w-[160px] truncate rounded-md bg-muted px-2 py-1'
-						title={value}
-					>
-						<code>{value}</code>
-					</pre>
-				)
-			} else {
-				return '—'
-			}
-		},
-	},
-	{
-		accessorKey: 'request',
-		header: 'Request',
-		cell: ({ getValue }) => {
-			let value = getValue()
-			return (
-				<pre
-					className='max-w-[160px] truncate rounded-md bg-muted px-2 py-1'
-					title={value}
-				>
-					<code>{value}</code>
-				</pre>
-			)
-		},
-	},
-	{
-		accessorKey: 'response',
-		header: 'Response',
-		cell: ({ getValue }) => {
-			let value = getValue()
-			return (
-				<pre
-					className='max-w-[160px] truncate rounded-md bg-muted px-2 py-1'
-					title={value}
-				>
-					<code>{value}</code>
-				</pre>
-			)
-		},
-	},
-]
 
 function createRandomLog(): Log {
 	return {
@@ -117,7 +18,7 @@ function createRandomLog(): Log {
 				to: new Date('2023-12-11T00:00:00'),
 			})
 		).toISOString(),
-		status: faker.helpers.arrayElement(['success', 'failure']),
+		status: faker.helpers.arrayElement(['success', 'error']),
 		error: faker.lorem.words(10),
 		request: faker.lorem.words(10),
 		response: faker.lorem.words(10),
@@ -178,7 +79,7 @@ export const data = [
 	{
 		id: '8d47fbdb-4b5d-4bed-8fe2-9f1c29a5a26e',
 		timestamp: '2023-12-10T17:44:28.216Z',
-		status: 'failure',
+		status: 'error',
 		error: 'solvo correptius absque defluo terga custodia velut suscipit vulgus contabesco',
 		request:
 			'asper aer corrigo dedico bardus audentia careo amaritudo aiunt tristis',
@@ -198,7 +99,7 @@ export const data = [
 	{
 		id: '5c855fb5-397a-43ff-b6ac-a281a82af9f3',
 		timestamp: '2023-09-27T13:53:50.770Z',
-		status: 'failure',
+		status: 'error',
 		error: 'quis cavus consequuntur adicio stipes sunt adiuvo summa concedo spectaculum',
 		request:
 			'error tergo acquiro vulpes barba ea ab avaritia auxilium coadunatio',
@@ -238,7 +139,7 @@ export const data = [
 	{
 		id: '158fd3ae-82bf-4334-b5e1-b5e95a718a1e',
 		timestamp: '2023-11-09T12:54:16.121Z',
-		status: 'failure',
+		status: 'error',
 		error: 'nihil deludo supplanto xiphias culpa debilito quis amaritudo ciminatio abstergo',
 		request:
 			'talio illo voluptate libero accusamus caute victus comitatus video arma',
@@ -248,7 +149,7 @@ export const data = [
 	{
 		id: '8a458ca3-da3e-43f5-aa9a-886143929e97',
 		timestamp: '2023-11-19T06:30:15.892Z',
-		status: 'failure',
+		status: 'error',
 		error: 'summa supplanto theologus dolorum unde cattus subvenio fugiat annus caveo',
 		request:
 			'corpus sublime cogito sponte acsi perspiciatis degusto capto vita socius',
@@ -268,7 +169,7 @@ export const data = [
 	{
 		id: 'c5fd78f2-ff2e-4842-8c26-68376d7c1fb2',
 		timestamp: '2023-10-22T07:51:14.810Z',
-		status: 'failure',
+		status: 'error',
 		error: 'aetas alius crastinus ancilla corpus assentator suadeo audeo odit tum',
 		request:
 			'vinco quo conicio chirographum vos tollo animadverto defetiscor odio solus',
@@ -288,7 +189,7 @@ export const data = [
 	{
 		id: 'c70921ef-5856-4086-8ad2-d7e0a5dab3c4',
 		timestamp: '2023-09-14T00:11:53.099Z',
-		status: 'failure',
+		status: 'error',
 		error: 'accommodo aegre derelinquo xiphias aggredior cultellus sordeo nisi pecto ascisco',
 		request:
 			'auctus cuius vilitas sufficio claudeo vulnus dedico adnuo depono templum',
@@ -318,7 +219,7 @@ export const data = [
 	{
 		id: 'afe0184c-db3a-4220-a958-d94bc4d11437',
 		timestamp: '2023-09-17T17:59:25.009Z',
-		status: 'failure',
+		status: 'error',
 		error: 'candidus cilicium sollers undique usque quod demum una contigo defendo',
 		request:
 			'vitium pauci tutis amissio tametsi capio versus sono cribro sit',
@@ -328,7 +229,7 @@ export const data = [
 	{
 		id: '1170249f-b577-4fcf-a12d-75e4423f7380',
 		timestamp: '2023-11-05T14:32:16.518Z',
-		status: 'failure',
+		status: 'error',
 		error: 'dapifer quasi vespillo fugit defluo perferendis quas trepide corrumpo consequatur',
 		request:
 			'summa decor validus sumptus patrocinor necessitatibus statim tamisium coaegresco id',
@@ -358,7 +259,7 @@ export const data = [
 	{
 		id: 'e4c49c20-3f31-4554-b7ad-5c8ccfe11923',
 		timestamp: '2023-10-25T16:35:15.196Z',
-		status: 'failure',
+		status: 'error',
 		error: 'aspernatur quo tenax acies clam defessus triduana aliqua despecto tracto',
 		request:
 			'delego teneo alias crur trucido demens vulticulus ago adstringo absorbeo',
