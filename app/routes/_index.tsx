@@ -13,69 +13,7 @@ import { Button } from '~/components/ui/button'
 import { XCircle } from 'lucide-react'
 import { queryLogs } from '~/services/clickhouse.server'
 import { json } from '@remix-run/node'
-
-const chartdata2 = [
-	{
-		date: 'Jan 23',
-		'2022': 45,
-		'2023': 78,
-	},
-	{
-		date: 'Feb 23',
-		'2022': 52,
-		'2023': 71,
-	},
-	{
-		date: 'Mar 23',
-		'2022': 48,
-		'2023': 80,
-	},
-	{
-		date: 'Apr 23',
-		'2022': 61,
-		'2023': 65,
-	},
-	{
-		date: 'May 23',
-		'2022': 55,
-		'2023': 58,
-	},
-	{
-		date: 'Jun 23',
-		'2022': 67,
-		'2023': 62,
-	},
-	{
-		date: 'Jul 23',
-		'2022': 60,
-		'2023': 54,
-	},
-	{
-		date: 'Aug 23',
-		'2022': 72,
-		'2023': 49,
-	},
-	{
-		date: 'Sep 23',
-		'2022': 65,
-		'2023': 52,
-	},
-	{
-		date: 'Oct 23',
-		'2022': 68,
-		'2023': null,
-	},
-	{
-		date: 'Nov 23',
-		'2022': 74,
-		'2023': null,
-	},
-	{
-		date: 'Dec 23',
-		'2022': 71,
-		'2023': null,
-	},
-]
+import { computeChartDate } from '~/lib/utils'
 
 // const data: Log[] = createRandomLogs(30)
 // const sortedData = getSortedData()
@@ -83,13 +21,29 @@ const chartdata2 = [
 export async function loader() {
 	const logs = await queryLogs()
 
-	return json(logs)
+	// calculate chart data from logs
+	const chartData = computeChartDate(logs)
+
+	return json({ chartData, logs })
 }
 
 export default function Home() {
-	const logs = useLoaderData()
+	const { chartData: data, logs } = useLoaderData<typeof loader>()
 	const [days, setDays] = useState<string>('')
 	const [range, setRange] = useState<DateRange | undefined>()
+	const [chartData, setChartData] = useState()
+
+	useEffect(() => {
+		const chartData = range
+			? data.filter((day) => {
+					return (
+						new Date(day.date) >= new Date(range?.from) &&
+						new Date(day.date) <= new Date(range?.to)
+					)
+			  })
+			: data
+		setChartData(chartData)
+	}, [range])
 
 	useEffect(() => {
 		const dateRange = parseInt(days)
@@ -124,17 +78,17 @@ export default function Home() {
 					) : null}
 				</section>
 				<section className='flex w-full flex-col gap-4'>
-					{/*<Card>*/}
-					{/*	<LineChart*/}
-					{/*		className='mt-4 h-96'*/}
-					{/*		data={chartdata2}*/}
-					{/*		index='date'*/}
-					{/*		categories={['2022', '2023']}*/}
-					{/*		colors={['neutral', 'indigo']}*/}
-					{/*		yAxisWidth={30}*/}
-					{/*		connectNulls={true}*/}
-					{/*	/>*/}
-					{/*</Card>*/}
+					<Card>
+						<LineChart
+							className='mt-4 h-96'
+							data={chartData}
+							index='date'
+							categories={['users', 'calls', 'failures']}
+							colors={['green', 'indigo', 'red']}
+							yAxisWidth={30}
+							connectNulls={true}
+						/>
+					</Card>
 					<div className='flex w-full flex-col gap-4'>
 						<DataTable data={logs} range={range} />
 					</div>
