@@ -1,4 +1,5 @@
 import { Card, LineChart } from '@tremor/react'
+import { useLoaderData } from '@remix-run/react'
 import Navbar from '~/components/Navbar'
 import {
 	DateRangePicker,
@@ -6,11 +7,12 @@ import {
 } from '~/components/DateRangePicker'
 import { useEffect, useState } from 'react'
 import { DataTable } from '~/components/logs/DataTable'
-import { getSortedData } from '~/components/logs/data'
 import { subDays } from 'date-fns'
 import { DateRange } from 'react-day-picker'
 import { Button } from '~/components/ui/button'
 import { XCircle } from 'lucide-react'
+import { queryLogs } from '~/services/clickhouse.server'
+import { json } from '@remix-run/node'
 
 const chartdata2 = [
 	{
@@ -76,9 +78,16 @@ const chartdata2 = [
 ]
 
 // const data: Log[] = createRandomLogs(30)
-const sortedData = getSortedData()
+// const sortedData = getSortedData()
+
+export async function loader() {
+	const logs = await queryLogs()
+
+	return json(logs)
+}
 
 export default function Home() {
+	const logs = useLoaderData()
 	const [days, setDays] = useState<string>('')
 	const [range, setRange] = useState<DateRange | undefined>()
 
@@ -127,7 +136,7 @@ export default function Home() {
 					{/*	/>*/}
 					{/*</Card>*/}
 					<div className='flex w-full flex-col gap-4'>
-						<DataTable data={sortedData} range={range} />
+						<DataTable data={logs} range={range} />
 					</div>
 				</section>
 			</main>

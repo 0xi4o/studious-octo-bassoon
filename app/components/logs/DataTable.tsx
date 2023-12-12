@@ -54,7 +54,7 @@ export function DataTable<TData>({ data, range }: DataTableProps<TData>) {
 
 	const columns: ColumnDef<Log>[] = [
 		{
-			accessorKey: 'id',
+			accessorKey: 'user_id',
 			header: 'UserID',
 			cell: ({ getValue }) => {
 				let value = getValue()

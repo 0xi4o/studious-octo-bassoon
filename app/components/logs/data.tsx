@@ -1,13 +1,5 @@
+import type { Log } from '~/lib/types'
 import { faker } from '@faker-js/faker'
-
-export type Log = {
-	id: string
-	timestamp: Date | string
-	status: 'success' | 'error'
-	error?: string
-	request: string
-	response: string
-}
 
 function createRandomLog(): Log {
 	return {
