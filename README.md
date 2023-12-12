@@ -1,38 +1,29 @@
-# Welcome to Remix!
 
--   [Remix Docs](https://remix.run/docs)
+# MetaKeep Dashboard
 
-## Development
+![MetaKeep-Dashboard](https://github.com/0xi4o/studious-octo-bassoon/assets/4386534/22051c98-6816-45be-bc76-14c53e6e609b)
 
-From your terminal:
+## API Reference
 
-```sh
-npm run dev
+#### Hello World
+
+```http
+  GET /api/hello/:user_id
 ```
 
-This starts your app in development mode, rebuilding assets on file changes.
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `user_id` | `number` | **Required**. An unsigned integer that acts as user_id |
 
-## Deployment
+Randomly generates an error and inserts logs into a Clickhouse database.
 
-First, build your app for production:
+## Tech Stack
 
-```sh
-npm run build
-```
+- Remix
+- React
+- Styling - [TailwindCSS](https://tailwindcss.com/)
+- Charts - [Trevor](https://trevor.dev)
+- Data Table - [Tanstack Table](https://tanstack.com/table/v8)
+- Database - [Clickhouse](https://clickhouse.com/)
+- Deployment - AWS with [Architect](https://arc.codes/)
 
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
--   `build/`
--   `public/build/`
