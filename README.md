@@ -27,3 +27,28 @@ Randomly generates an error and inserts logs into a Clickhouse database.
 - Database - [Clickhouse](https://clickhouse.com/)
 - Deployment - AWS with [Architect](https://arc.codes/)
 
+## Development
+
+Clone the project
+
+```bash
+  git clone https://github.com/0xi4o/studious-octo-bassoon
+```
+
+Go to the project directory
+
+```bash
+  cd studious-octo-bassoon
+```
+
+Install dependencies
+
+```bash
+  pnpm i
+```
+
+Start the server
+
+```bash
+  pnpm dev
+```
