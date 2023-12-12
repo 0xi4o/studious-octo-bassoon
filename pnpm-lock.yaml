@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@clickhouse/client':
+    specifier: ^0.2.6
+    version: 0.2.6
   '@radix-ui/react-dropdown-menu':
     specifier: ^2.0.6
     version: 2.0.6(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
@@ -1662,6 +1665,17 @@ packages:
   /@begin/hashid@1.0.0:
     resolution: {integrity: sha512-w+U9klEtRkt7hyW/f+/SvwPgJ4CTMO2ENddisX9dGgLUZKu+iKpb/IhYnQWIt9/Nnm/5DkApmiHGimPs621wwA==}
     dev: true
+
+  /@clickhouse/client-common@0.2.6:
+    resolution: {integrity: sha512-T2HwPCKi98vGGtPxcV1q5YH/tET5f1FhdKYxo3AqOdawIMPoymQGzfsxsAL5UpMsfdBYrko6Sjy3RJxt7/gYyg==}
+    dev: false
+
+  /@clickhouse/client@0.2.6:
+    resolution: {integrity: sha512-vvy101CNKRHr/M7eML19fIOOSELNpE2kwvBMdqag9ImosK2Lx5e4X8D7jt84EUD1V1JC1Dp2cG36/1JJb8ZC9g==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@clickhouse/client-common': 0.2.6
+    dev: false
 
   /@emotion/hash@0.9.1:
     resolution: {integrity: sha512-gJB6HLm5rYwSLI6PQa+X1t5CFGrv1J1TWG+sOyMCeKz2ojaj6Fnl/rZEspogG+cvqbt4AE/2eIyD2QfLKTBNlQ==}
