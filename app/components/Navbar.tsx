@@ -3,7 +3,7 @@ import { ExternalLink } from 'lucide-react'
 
 export default function Navbar() {
 	return (
-		<header className='supports-backdrop-blur:bg-white/60 sticky top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-center px-4 py-4 shadow-sm shadow-gray-200 backdrop-blur dark:bg-transparent dark:shadow-gray-700 sm:px-6 lg:px-8'>
+		<header className='supports-backdrop-blur:bg-white/60 top-0 z-50 flex h-20 w-screen flex-wrap items-center justify-center px-4 py-4 shadow-sm shadow-gray-200 backdrop-blur dark:bg-transparent dark:shadow-gray-700 sm:px-6 lg:px-8'>
 			<div className='flex w-full max-w-7xl items-center justify-between px-6 lg:px-8'>
 				<div className='relative flex flex-grow items-center'>
 					<Link

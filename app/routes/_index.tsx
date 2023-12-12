@@ -64,7 +64,7 @@ export default function Home() {
 		<>
 			<Navbar />
 			<main className='mx-auto flex max-w-7xl flex-col items-start justify-start gap-4 px-6 py-16 sm:py-24 lg:px-8'>
-				<section className='flex w-full items-center gap-4'>
+				<section className='flex w-full flex-col items-start gap-4 md:flex-row md:items-center'>
 					<DateRangeSelector days={days} setDays={setDays} />
 					<DateRangePicker
 						dateRange={range}
