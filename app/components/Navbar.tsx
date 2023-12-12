@@ -18,7 +18,7 @@ export default function Navbar() {
 						/>
 					</Link>
 				</div>
-				<div className='flex flex-grow items-center justify-end gap-4'>
+				<div className='flex flex-grow items-center justify-end gap-8 text-muted-foreground'>
 					<a
 						className='flex items-center gap-2'
 						href='https://metakeep.xyz/'
@@ -26,6 +26,15 @@ export default function Navbar() {
 						target='_blank'
 					>
 						Home
+						<ExternalLink className='h-4 w-4' />
+					</a>
+					<a
+						className='flex items-center gap-2'
+						href='https://github.com/0xi4o/studious-octo-bassoon'
+						rel='noopener'
+						target='_blank'
+					>
+						Github
 						<ExternalLink className='h-4 w-4' />
 					</a>
 				</div>
